@@ -3,6 +3,9 @@ package com.portifolio.comercio_eletronico.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
@@ -14,6 +17,10 @@ public class Usuario {
     private String senha;
     private String telefone;
     private LocalDate dNascimento;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
+
     /*private String perfilUsuario[];--Não será implementado ainda.
     Adicione o construtor vazio
     e o construtor com parâmetros,
