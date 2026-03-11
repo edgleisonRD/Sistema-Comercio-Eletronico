@@ -17,14 +17,10 @@ public class Usuario {
     private String senha;
     private String telefone;
     private LocalDate dNascimento;
-
+    //Adicione essa coleção na classe Usuario
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
-
-    /*private String perfilUsuario[];--Não será implementado ainda.
-    Adicione o construtor vazio
-    e o construtor com parâmetros,
-    além dos getters e setters para cada atributo.*/
+    //Gere um Get para a coleção de pedido
 
     public Usuario() {}
 
@@ -83,5 +79,9 @@ public class Usuario {
 
     public void setdNascimento(LocalDate dNascimento) {
         this.dNascimento = dNascimento;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 }

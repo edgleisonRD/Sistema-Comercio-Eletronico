@@ -9,20 +9,26 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant horario;
     private StatusPedido status;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Pagamento pagamento;
+
     public Pedido() {
 
-    }
-    public Pedido(long id, Instant horario, StatusPedido status, Usuario cliente) {
+    }//Adicione Construtores, Gets e Sets
+    public Pedido(long id, Instant horario, StatusPedido status, Usuario cliente, Pagamento pagamento) {
         this.id = id;
         this.horario = horario;
         this.status = status;
         this.cliente = cliente;
+        this.pagamento = pagamento;
     }
 
     public long getId() {
@@ -55,5 +61,13 @@ public class Pedido {
 
     public void setCliente(Usuario cliente) {
         this.cliente = cliente;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 }
