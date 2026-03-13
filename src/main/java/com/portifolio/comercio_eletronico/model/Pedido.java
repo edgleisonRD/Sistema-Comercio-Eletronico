@@ -3,6 +3,10 @@ package com.portifolio.comercio_eletronico.model;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name="tb_pedido")
 public class Pedido {
@@ -12,6 +16,9 @@ public class Pedido {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant horario;
     private StatusPedido status;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -70,4 +77,13 @@ public class Pedido {
     public void setPagamento(Pagamento pagamento) {
         this.pagamento = pagamento;
     }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+    public List<Produto> getProdutos() {
+        return itens.stream().map(x -> x.getProduto()).toList();
+    }
+
 }
+
