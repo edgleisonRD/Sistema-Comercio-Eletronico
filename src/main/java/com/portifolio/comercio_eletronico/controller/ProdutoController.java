@@ -1,29 +1,33 @@
 package com.portifolio.comercio_eletronico.controller;
 
+import com.portifolio.comercio_eletronico.dto.ProdutoDTO;
 import com.portifolio.comercio_eletronico.model.Produto;
 import com.portifolio.comercio_eletronico.repositorios.ProdutoRepositorio;
+import com.portifolio.comercio_eletronico.servico.ProdutoServico;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
 
 
-    private final ProdutoRepositorio repositorio;
+    private final ProdutoServico produtoServico;
     //Injeção via construtor
-    public ProdutoController(ProdutoRepositorio repositorio) {
-        this.repositorio = repositorio;
+    public ProdutoController(ProdutoServico produtoServico) {
+        this.produtoServico = produtoServico;
     }
 
-    @GetMapping
-    public String teste(){
-    Optional<Produto> result=repositorio.findById(10L);
-    Produto produto=result.get();
-    return produto.getNome();
+    // O value = "/{id}" indica que a URL terá um número variável, ex: /produto/5
+    @GetMapping(value = "/{id}")
+    public ProdutoDTO filtrarPorId(@PathVariable Long id) {
+        // @PathVariable diz ao Spring: "pegue o número que está na URL e coloque na variável 'id'".
+
+        // O Controller chama o Serviço para buscar o dado e já o retorna como DTO.
+        return produtoServico.fitrarId(id);
     }
 }
