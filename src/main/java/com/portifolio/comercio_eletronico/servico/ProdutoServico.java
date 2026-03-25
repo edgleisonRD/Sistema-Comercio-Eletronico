@@ -22,15 +22,25 @@ public class ProdutoServico {
         this.repositorio = repositorio;
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     public ProdutoDTO fitrarPorId(Long id) {// Busca o produto no banco pelo ID.
         Produto produto = repositorio.findById(id).get();
         return new ProdutoDTO(produto);
     }
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     public Page<ProdutoDTO> filtrarTodos(Pageable pageable) {
         Page<Produto> result = repositorio.findAll(pageable);
         return result.map(x -> new ProdutoDTO(x));
     }
+    @Transactional
+    public ProdutoDTO inserir(ProdutoDTO dto) {
+        Produto produto = new Produto();
+        produto.setNome(dto.getNome());
+        produto.setDescricao(dto.getDescricao());
+        produto.setPreco(dto.getPreco());
+        produto.setImgUrl(dto.getImgUrl());
+        repositorio.save(produto);
+        return  new ProdutoDTO(produto);//retornamos um objeto salvo atualizado
+    }
 }
-
