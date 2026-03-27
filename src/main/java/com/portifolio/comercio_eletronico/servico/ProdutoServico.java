@@ -33,14 +33,29 @@ public class ProdutoServico {
         Page<Produto> result = repositorio.findAll(pageable);
         return result.map(x -> new ProdutoDTO(x));
     }
+
     @Transactional
     public ProdutoDTO inserir(ProdutoDTO dto) {
         Produto produto = new Produto();
+        copiandoDtoParaClasse(dto, produto);
+        repositorio.save(produto);
+        return new ProdutoDTO(produto);
+    }
+
+    @Transactional
+    public ProdutoDTO atualizar(Long id, ProdutoDTO dto) {
+        Produto produto = repositorio.getReferenceById(id);
+        copiandoDtoParaClasse(dto, produto);
+        repositorio.save(produto);
+        return new ProdutoDTO(produto);
+    }
+
+    private void copiandoDtoParaClasse(ProdutoDTO dto, Produto produto) {
         produto.setNome(dto.getNome());
         produto.setDescricao(dto.getDescricao());
         produto.setPreco(dto.getPreco());
         produto.setImgUrl(dto.getImgUrl());
-        repositorio.save(produto);
-        return  new ProdutoDTO(produto);//retornamos um objeto salvo atualizado
+
     }
 }
+

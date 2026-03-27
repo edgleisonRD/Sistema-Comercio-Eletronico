@@ -40,4 +40,9 @@ public class ProdutoController {
                 .buildAndExpand(produtoDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(produtoDTO);
     }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestBody ProdutoDTO produtoDTO) {
+        produtoDTO = produtoServico.atualizar(id, produtoDTO);
+        return ResponseEntity.ok(produtoDTO);
+    }
 }
