@@ -45,4 +45,10 @@ public class ProdutoController {
         produtoDTO = produtoServico.atualizar(id, produtoDTO);
         return ResponseEntity.ok(produtoDTO);
     }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
+        produtoServico.deletar(id);
+        return ResponseEntity.noContent().build();/*O noContent() é para retornar um corpo vazio,
+         o build() é para garantir a instancia do ResponseEntity o status a ser retornado é 204 No Content*/
+    }
 }

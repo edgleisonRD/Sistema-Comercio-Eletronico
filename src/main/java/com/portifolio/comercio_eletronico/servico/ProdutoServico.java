@@ -49,6 +49,10 @@ public class ProdutoServico {
         repositorio.save(produto);
         return new ProdutoDTO(produto);
     }
+    @Transactional
+    public void deletar(Long id) {
+        repositorio.deleteById(id);
+    }
 
     private void copiandoDtoParaClasse(ProdutoDTO dto, Produto produto) {
         produto.setNome(dto.getNome());
@@ -57,5 +61,6 @@ public class ProdutoServico {
         produto.setImgUrl(dto.getImgUrl());
 
     }
+    
 }
 
