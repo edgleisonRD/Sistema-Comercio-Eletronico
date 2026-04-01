@@ -9,9 +9,7 @@ public class ProdutoDTO {
     private String descricao;
     private double preco;
     private String imgUrl;
-
     public ProdutoDTO() {}
-
     public ProdutoDTO(long id, String nome, String descricao, double preco, String imgUrl) {
         this.id = id;
         this.nome = nome;
