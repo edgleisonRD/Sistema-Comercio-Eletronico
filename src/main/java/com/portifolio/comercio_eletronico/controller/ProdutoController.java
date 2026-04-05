@@ -4,6 +4,7 @@ import com.portifolio.comercio_eletronico.dto.ErroCustomizado;
 import com.portifolio.comercio_eletronico.dto.ProdutoDTO;
 import com.portifolio.comercio_eletronico.exceptions.ExceptionsParaRecursosNaoEncontrado;
 import com.portifolio.comercio_eletronico.servico.ProdutoServico;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -39,14 +40,14 @@ public class ProdutoController {
         return ResponseEntity.ok(dto);
     }
     @PostMapping
-    public ResponseEntity <ProdutoDTO> inserir(@RequestBody ProdutoDTO produtoDTO){
+    public ResponseEntity <ProdutoDTO> inserir(@Valid @RequestBody ProdutoDTO produtoDTO){
         produtoDTO = produtoServico.inserir(produtoDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(produtoDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(produtoDTO);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id, @RequestBody ProdutoDTO produtoDTO) {
+    public ResponseEntity<ProdutoDTO> atualizar(@PathVariable Long id,@Valid @RequestBody ProdutoDTO produtoDTO) {
         produtoDTO = produtoServico.atualizar(id, produtoDTO);
         return ResponseEntity.ok(produtoDTO);
     }

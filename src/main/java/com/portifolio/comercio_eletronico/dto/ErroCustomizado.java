@@ -8,10 +8,6 @@ public class ErroCustomizado {
     private String error;
     private String path;
 
-    /*Crie o construtor com argumentos
-      Gere apenas Gets
-     */
-
     public ErroCustomizado(Instant timestamp, Integer status, String error, String path) {
         this.timestamp = timestamp;
         this.status = status;

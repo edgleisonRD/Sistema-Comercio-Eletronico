@@ -2,12 +2,23 @@ package com.portifolio.comercio_eletronico.dto;
 
 
 import com.portifolio.comercio_eletronico.model.Produto;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public class ProdutoDTO {
     private long id;
+    @Size(min = 3, max = 80, message = "Nome precisa ter entre três e oitenta caracteres!")
+    @NotBlank(message = "Campo obrigatorio!")
     private String nome;
+
+    @Size(min = 10, message = "Descrição deve ter no minimo dez caracteres!")
+    @NotBlank(message = "Campo obrigatorio!")
     private String descricao;
+
+    @Positive(message = "O preço deve ser positivo!")
     private double preco;
+
     private String imgUrl;
     public ProdutoDTO() {}
     public ProdutoDTO(long id, String nome, String descricao, double preco, String imgUrl) {
